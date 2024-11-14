@@ -7,6 +7,7 @@ use App\Http\Controllers\PetController;
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\ReportController;
 
 Route::get('/', function () {
     return view('index');
@@ -15,6 +16,7 @@ Route::get('/', function () {
 Auth::routes(['register'=>false]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/pets', [App\Http\Controllers\PetController::class, 'index'])->name('pets.index');
 
 Route::resource('/clients', ClientController::class);
 Route::resource('/pets', PetController::class);

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Pet;
+use App\Models\Client;
 
 class PetController extends Controller
 {
@@ -12,7 +13,8 @@ class PetController extends Controller
      */
     public function index()
     {
-        //
+        $pets = Pet::all();
+        return view('pets.index', compact('pets'));
     }
 
     /**
@@ -20,7 +22,8 @@ class PetController extends Controller
      */
     public function create()
     {
-        //
+        $clients = Client::all();
+        return view('pets.create', compact('clients'));
     }
 
     /**
@@ -28,7 +31,17 @@ class PetController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request-> validate([
+            'nombre' => 'required|string|max:75',
+            'especie' => 'required|string',
+            'raza' => 'nullable|string',
+            'client_id' => 'nullable|integer'
+        ]);
+
+        Pet::create($request->all());
+
+        return redirect()->route('pets.index')
+        -> with('success', 'Mascota añadida con exito.');
     }
 
     /**
